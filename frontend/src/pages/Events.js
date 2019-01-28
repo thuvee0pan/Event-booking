@@ -5,7 +5,7 @@ import { fetchEvent, createEvent } from '.././Store/actions/eventAction'
 import { connect } from 'react-redux'
 
 import Model from '../components/models/Model'
-import EventItems from '../components/Events/EventItems'
+import EventList from '../components/Events/EventList';
 class EventsPage extends Component{
     constructor(props) {
         
@@ -39,11 +39,7 @@ class EventsPage extends Component{
 
     }
     render() {
-        const eventList = this.props.events.map(event => {
-            return (
-                 <EventItems event={event} ></EventItems>
-            );
-          });
+        
         return (
             <div >
                 {/* {console.log(this.props.user)                } */}
@@ -82,7 +78,7 @@ class EventsPage extends Component{
                 </div>)}
                
                 <div className=" mt-4">
-                {eventList}
+                    <EventList events={this.props.events} authUserID={this.props.user.userID}/>
                 </div>
                 
             
