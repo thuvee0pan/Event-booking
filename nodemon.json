@@ -1,0 +1,7 @@
+{
+    "env":{
+        "MANGO_USER":"thuvee",
+        "PASSWORD":"Sxeuo57rOqI8eyrb",
+        "MONGO_DB":"event-booking"
+    }
+}
