@@ -16,7 +16,11 @@ export default function (state = initialState, action) {
          case NEW_EVENT:
             return {
                 ...state,
-                event : action.payload
+                event:action.payload
+                // events: [
+                //     ...state.events,
+                //     action.payload
+                // ]
             }
         default:
             return state

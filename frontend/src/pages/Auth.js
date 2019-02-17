@@ -46,7 +46,7 @@ class AuthPage extends Component{
                  <form onSubmit = {this.singup}>
                 <div className="form-group">
                     <label htmlFor="InputEmail">Email address</label>
-                            <input ref={this.SUemail} type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email"/>
+                    <input ref={this.SUemail} type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email"/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="InputName">Name</label>

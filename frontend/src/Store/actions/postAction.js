@@ -1,7 +1,8 @@
 import { FETCH_POST, NEW_POST } from './types'
+// import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 export const fetchPosts = () => dispatch => {
-    console.log('fetching');
+
         fetch('https://jsonplaceholder.typicode.com/posts')
         .then(res => res.json())
             .then(posts => dispatch({
@@ -11,7 +12,6 @@ export const fetchPosts = () => dispatch => {
             .catch (err => {
             console.log(err)
         });
-    
 }
 
 export const newPost = (data) => dispatch => {

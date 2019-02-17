@@ -34,15 +34,19 @@ class EventsPage extends Component{
         if (eventData.title.trim().length === 0 ||eventData.description.trim().length === 0||eventData.price.length === 0 ||eventData.date.trim().length === 0 ||eventData.creator.trim().length === 0) {
             return ;
         }
-        this.props.createEvent(eventData);
+        this.props.createEvent(eventData)
+        this.props.fetchEvent()
        
 
+    }
+    bookEvent = () => {
+        console.log('Book Event');
+        
     }
     render() {
         
         return (
             <div >
-                {/* {console.log(this.props.user)                } */}
                 {this.props.user.token && (<div className="card bg-dark mt-2 text-light">
                     <div className="card-body text-center">
                         <p>Create a New Event</p>
@@ -53,6 +57,9 @@ class EventsPage extends Component{
                             canCancel = {this.modelCancel}
                             canConfirm  = {this.modelConfirm}
                             buttonText="Create"
+                            confirmText="Create"
+                            id="AddEvent"
+                            IDtarget="#AddEvent"
                         >
                                 <form>
                             <div className="form-group">
@@ -78,7 +85,7 @@ class EventsPage extends Component{
                 </div>)}
                
                 <div className=" mt-4">
-                    <EventList events={this.props.events} authUserID={this.props.user.userID}/>
+                    <EventList events={this.props.events} authUserID={this.props.user.userID} bookEvent={this.bookEvent}/>
                 </div>
                 
             

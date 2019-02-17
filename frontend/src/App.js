@@ -5,15 +5,13 @@ import { connect } from 'react-redux'
 import { logout } from './Store/actions/authAction'
 import PropTypes from 'prop-types';
 
-
-
 import AuthPage from './pages/Auth'
 import EventsPage from './pages/Events'
 import Bookingsage from './pages/Bookings'
 import Blogs from './pages/Blogs'
 import MainNavigation from './components/Navigation/MainNavigation'
 import Home from './pages/Home'
-
+import LoadingBar from 'react-redux-loading-bar'
 
 class App extends Component {
   loggedIn() {
@@ -26,8 +24,11 @@ class App extends Component {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <MainNavigation auth={this.loggedIn()} logout={this.logOut}/>
-        <main className="container ">
+          <MainNavigation auth={this.loggedIn()} logout={this.logOut} />
+
+          <main className="container ">
+          <LoadingBar />
+
         <Switch>
               {!this.loggedIn() && <Redirect from="/" to="auth" exact />}
               {/* {!this.loggedIn() && <Redirect from="/events" to="auth" exact />} */}

@@ -1,9 +1,8 @@
-import { FETCH_EVENTS ,NEW_EVENT} from './types'
+import { FETCH_EVENTS ,NEW_EVENT } from './types'
 import store from '../index';
 
 export const fetchEvent = () => dispatch => {
    
-
     const quary = {
         query: `
         query {
@@ -41,11 +40,10 @@ export const fetchEvent = () => dispatch => {
     .catch(err => {
         console.log(err)
     })
-    
         
 }
 export const createEvent = (data) => dispatch => {
-    const {token}  = store.getState().auth
+   const {token}  = store.getState().auth
     console.log("Token",token);
     const quary = {
         query: `
@@ -57,10 +55,15 @@ export const createEvent = (data) => dispatch => {
               date:"${data.date}",
              
             }){
-              _id
-              title
-              description
-              price
+                _id
+                title
+                description
+                date
+                price
+                creator {
+                  _id
+                  email
+                }
             }
           }
         `
@@ -77,13 +80,18 @@ export const createEvent = (data) => dispatch => {
         if (res.status !== 200 && res.status !== 201) {
             throw new Error('failed! ')
         }
+        
         return res.json();
+        
     })
         .then(user => dispatch({
-        type:NEW_EVENT ,
-        payload : user.data.event
+        
+        type:NEW_EVENT,
+            payload: user.data.event,
+           
     }))
     .catch(err => {
         console.log(err)
     })
+ 
 }

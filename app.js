@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const graphqlHTTP = require('express-graphql');
 const mongoose = require("mongoose");
+
 const isAuth = require('./middleware/is-auth');
 
 const gSchema = require('./graphQL/schema/index');
