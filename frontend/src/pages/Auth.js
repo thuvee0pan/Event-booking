@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { login, signup } from '../Store/actions/authAction'
 import PropTypes from 'prop-types';
 
-
 class AuthPage extends Component{
     
     constructor(props) {
@@ -26,6 +25,7 @@ class AuthPage extends Component{
             return;
         }
         this.props.signup({ email, name, password });
+
         
     }
     singin = (event) => {
@@ -73,7 +73,7 @@ class AuthPage extends Component{
                     <input  ref={this.SIpassword} type="password" className="form-control" id="InputPassword1" placeholder="Password"/>
                 </div>
                
-                <button type="submit" className="btn btn-primary w-25">Sign in</button>`
+                <button type="submit" className="btn btn-primary w-25">Sign in</button>
                 </form>
                 </div>
                 </div>

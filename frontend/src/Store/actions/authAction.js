@@ -1,4 +1,5 @@
 import { SIGNUP, LOGIN , LOGOUT} from './types'
+import {ToastsStore} from 'react-toasts';
 
 export const login = (data) => dispatch => {
    
@@ -28,13 +29,15 @@ export const login = (data) => dispatch => {
             throw new Error('Sign in failed! ')
         }
         return res.json();
-    })
-        .then(user => dispatch({
+    }).then(user => dispatch(
+            {
         type: LOGIN,
-        payload : user.data.login
+            payload: user.data.login,
     }))
     .catch(err => {
-        console.log(err)
+        console.log("Error",err)
+       ToastsStore.error(err.toString())
+
     })
     
         
@@ -73,6 +76,8 @@ export const signup = (data) => dispatch => {
     })) 
     .catch(err => {
         console.log(err)
+        ToastsStore.error(err.toString())
+
     })
 }
 export const logout = () => dispatch => {

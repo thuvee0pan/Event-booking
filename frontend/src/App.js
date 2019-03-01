@@ -12,6 +12,8 @@ import Blogs from './pages/Blogs'
 import MainNavigation from './components/Navigation/MainNavigation'
 import Home from './pages/Home'
 import LoadingBar from 'react-redux-loading-bar'
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+
 
 class App extends Component {
   loggedIn() {
@@ -25,9 +27,11 @@ class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <MainNavigation auth={this.loggedIn()} logout={this.logOut} />
+          <ToastsContainer store={ToastsStore}/>
 
           <main className="container ">
-          <LoadingBar />
+            <LoadingBar />
+
 
         <Switch>
               {!this.loggedIn() && <Redirect from="/" to="auth" exact />}

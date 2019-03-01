@@ -1,5 +1,4 @@
 import React from 'react'
-import Model from '../models/Model';
 
 const EventItems = (props) => {
   return (
@@ -12,21 +11,7 @@ const EventItems = (props) => {
               <div className="col-6 text-right">
                   {props.event.creator._id === props.authUserID && (<p>You own this Event</p>)}
                   {props.event.creator._id !== props.authUserID &&
-                     <Model
-                     title="Event Details"                
-                     canConfirm={props.bookEvent}
-                     buttonText="View Details"
-                      confirmText="Book"
-                      canCancel
-                    id="viewDetails"
-                    IDtarget= "#viewDetails"
-             >
-                <div className="text-center">
-                  <h1>{props.event.title}</h1>
-                  <p>{props.event.description}</p>
-                  <span className="badge badge-primary">$ {props.event.price}</span><br/> 
-                  </div>
-               </Model>
+                    props.children
                   }
                  </div>
                 </div>

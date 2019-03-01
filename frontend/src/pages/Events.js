@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-duplicate-props */
 import React, { Component } from 'react';
-import { fetchEvent, createEvent } from '.././Store/actions/eventAction'
+import { fetchEvent, createEvent,bookEvent } from '.././Store/actions/eventAction'
 import { connect } from 'react-redux'
 
 import Model from '../components/models/Model'
@@ -10,7 +10,9 @@ class EventsPage extends Component{
     constructor(props) {
         
         super(props);
-
+        this.state ={
+            selectedEvent : null
+        }
         this.titleElRef = React.createRef();
         this.descriptionElRef = React.createRef()
         this.priceElRef = React.createRef()
@@ -41,62 +43,108 @@ class EventsPage extends Component{
     }
     bookEvent = () => {
         console.log('Book Event');
+        if (!this.props.user.token) {
+            this.setState({
+                selectedEvent : null
+           })
+            return;
+        }
+        this.props.bookEvent({ id: this.state.selectedEvent._id })
+        this.setState({
+            selectedEvent : null
+       })
+
+    }
+    viewEvent = (e) => {
+        console.log(this.state.selectedEvent);
+        this.setState({
+            selectedEvent: e
+        })
+        console.log(this.state.selectedEvent);
+
         
+    }
+    modelView = () => {
+        this.setState({
+            selectedEvent : null
+       })
     }
     render() {
         
         return (
-            <div >
-                {this.props.user.token && (<div className="card bg-dark mt-2 text-light">
+            <div>
+                {this.props.user.token && (
+                    <div className="card bg-dark mt-2 text-light">
                     <div className="card-body text-center">
                         <p>Create a New Event</p>
+                        <div className="text-dark">
+                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#AddEvent">
+                                Create Event
+                                </button>
                         <Model
                             title="Add Event"
                             canCancel
                             canConfirm
-                            canCancel = {this.modelCancel}
-                            canConfirm  = {this.modelConfirm}
-                            buttonText="Create"
+                            CancelB = {this.modelCancel}
+                            ConfirmB  = {this.modelConfirm}
                             confirmText="Create"
                             id="AddEvent"
-                            IDtarget="#AddEvent"
                         >
                                 <form>
-                            <div className="form-group">
-                                <label htmlFor="Title">Title</label>
-                                    <input ref={this.titleElRef} type="text" className="form-control" id="Title" placeholder="Enter title" required/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="description">Description</label>
-                                <textarea ref={this.descriptionElRef} className="form-control" id="description" placeholder="Enter Description" required/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="price">Price</label>
-                                    <input ref={this.priceElRef} type="number" className="form-control" id="price" placeholder="Enter Price" required/>
-                                    </div>     
-                                <div className="form-group">
-                                <label htmlFor="date">date</label>
-                                    <input ref={ this.dateElRef} type="datetime-local" className="form-control" id="date" required/>
-                            </div>         
+                                    <div className="form-group">
+                                        <label htmlFor="Title">Title</label>
+                                            <input ref={this.titleElRef} type="text" className="form-control" id="Title" placeholder="Enter title" required/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="description">Description</label>
+                                        <textarea ref={this.descriptionElRef} className="form-control" id="description" placeholder="Enter Description" required/>
+                                    </div>
+                                        <div className="form-group">
+                                            <label htmlFor="price">Price</label>
+                                                <input ref={this.priceElRef} type="number" className="form-control" id="price" placeholder="Enter Price" required/>
+                                                </div>     
+                                        <div className="form-group">
+                                        <label htmlFor="date">date</label>
+                                            <input ref={ this.dateElRef} type="datetime-local" className="form-control" id="date" required/>
+                                    </div>         
                             
-                    </form> 
+                                 </form> 
                         </Model>
+                            </div>
+                            </div>
+                        </div>
+                )}
+                       
+                        <div className=" mt-4">
+                            <EventList events={this.props.events} authUserID={this.props.user.userID} viewEvent={this.viewEvent}/>
+                        </div>
+                {this.state.selectedEvent && <Model
+                    title="Event Details"
+                    CancelB = {this.modelView}
+                    ConfirmB={this.bookEvent}
+                    confirmText={this.props.user.token ? 'Book':'Confirm'}
+                    canConfirm
+                    canCancel
+                    id="viewDetails"
+                >
+                    <div className="text-center">
+                        <h1>{this.state.selectedEvent.title}</h1>
+                        <p>{this.state.selectedEvent.description}</p>
+                        <span className="badge badge-primary">$ {this.state.selectedEvent.price}</span><br />
                     </div>
-                </div>)}
-               
-                <div className=" mt-4">
-                    <EventList events={this.props.events} authUserID={this.props.user.userID} bookEvent={this.bookEvent}/>
-                </div>
-                
+                </Model>}
             
 
-            </div>
+                </div>
+                    
             );
         
-    }
+        }
+    
 }
+            
 const mapStateToProps = state => ({
     events: state.events.events,
     user:state.auth
 })
-export default connect(mapStateToProps, { fetchEvent, createEvent })(EventsPage);
+export default connect(mapStateToProps, { fetchEvent, createEvent,bookEvent })(EventsPage);

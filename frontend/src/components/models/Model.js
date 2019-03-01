@@ -1,11 +1,6 @@
 import React from 'react'
 
-const Model = props => (
-    <div className="text-dark">
-         <button type="button" className="btn btn-primary" data-toggle="modal" data-target={props.IDtarget}>
-        {props.buttonText}
-    </button>
-    
+const Model = props => (    
     <div className="modal fade" id={props.id} tabIndex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div className="modal-dialog" role="document">
         <div className="modal-content">
@@ -19,12 +14,12 @@ const Model = props => (
                    {props.children}      
         </div>
         <div className="modal-footer">
-                        {props.canCancel && <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>}
-                        {props.canConfirm && <button type="button" className="btn btn-primary" onClick={props.canConfirm} data-dismiss="modal">{props.confirmText}</button>}
+                        {props.canCancel && <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={props.CancelB}>Close</button>}
+                        {props.canConfirm && <button type="button" className="btn btn-primary" onClick={props.ConfirmB} data-dismiss="modal">{props.confirmText}</button>}
         </div>
         </div>
     </div>
     </div>
-   </div>
+//    </div>
 )
 export default Model;
